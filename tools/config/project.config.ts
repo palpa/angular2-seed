@@ -13,7 +13,7 @@ export class ProjectConfig extends SeedConfig {
 
   constructor() {
     super();
-    // this.APP_TITLE = 'Put name of your app here';
+    this.APP_TITLE = 'Reparaciones';
     let additional_deps: InjectableDependency[] = [
       { src: 'ng2-bootstrap/bundles/ng2-bootstrap', inject: 'lib' },
       { src: 'bootstrap/dist/css/bootstrap.css', inject: true }
