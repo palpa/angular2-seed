@@ -1,0 +1,9 @@
+<form (submit)="addUser()">
+  <input [(ngModel)]="newName" placeholder="Usuario">
+  <button type="submit">Nuevo</button>
+</form>
+
+
+<ul>
+  <li *ngFor="let user of usersService.get() | async">{{user.name}}</li>
+</ul>

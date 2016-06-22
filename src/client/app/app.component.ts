@@ -3,6 +3,7 @@ import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
 import { HTTP_PROVIDERS} from '@angular/http';
 
 import { AboutComponent } from './+about/index';
+import { UsersComponent, UsersService } from './+users/index';
 import { HomeComponent } from './+home/index';
 import { NameListService, NavbarComponent, ToolbarComponent } from './shared/index';
 
@@ -13,7 +14,7 @@ import { NameListService, NavbarComponent, ToolbarComponent } from './shared/ind
 @Component({
   moduleId: module.id,
   selector: 'sd-app',
-  viewProviders: [NameListService, HTTP_PROVIDERS],
+  viewProviders: [NameListService, UsersService, HTTP_PROVIDERS],
   templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
 })
@@ -21,6 +22,10 @@ import { NameListService, NavbarComponent, ToolbarComponent } from './shared/ind
   {
     path: '/',
     component: HomeComponent
+  },
+  {
+    path: '/users',
+    component: UsersComponent
   },
   {
     path: '/about',
