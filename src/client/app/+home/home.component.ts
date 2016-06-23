@@ -1,6 +1,6 @@
-import { FORM_DIRECTIVES } from '@angular/common';
-import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 import { Component } from '@angular/core';
+import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms/index';
+import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { NameListService } from '../shared/index';
 
@@ -12,7 +12,7 @@ import { NameListService } from '../shared/index';
   selector: 'sd-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
-  directives: [FORM_DIRECTIVES, AlertComponent]
+  directives: [REACTIVE_FORM_DIRECTIVES, AlertComponent]
 })
 export class HomeComponent {
 

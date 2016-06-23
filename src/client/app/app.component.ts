@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
-import { HTTP_PROVIDERS} from '@angular/http';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { HTTP_PROVIDERS } from '@angular/http';
 
-import { AboutComponent } from './+about/index';
-import { UsersComponent, UsersService } from './+users/index';
-import { HomeComponent } from './+home/index';
+import { UsersService } from './+users/index';
 import { NameListService, NavbarComponent, ToolbarComponent } from './shared/index';
 
 /**
@@ -18,18 +16,4 @@ import { NameListService, NavbarComponent, ToolbarComponent } from './shared/ind
   templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
 })
-@Routes([
-  {
-    path: '/',
-    component: HomeComponent
-  },
-  {
-    path: '/users',
-    component: UsersComponent
-  },
-  {
-    path: '/about',
-    component: AboutComponent
-  }
-])
 export class AppComponent {}
