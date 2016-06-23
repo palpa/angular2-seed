@@ -1,6 +1,5 @@
-import { FORM_DIRECTIVES } from '@angular/common';
-import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 import { Component } from '@angular/core';
+import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms/index';
 
 import { UsersService } from './users.service';
 
@@ -12,7 +11,7 @@ import { UsersService } from './users.service';
   selector: 'sd-users',
   templateUrl: 'users.component.html',
   //styleUrls: ['users.component.css'],
-  directives: [FORM_DIRECTIVES]
+  directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class UsersComponent {
 

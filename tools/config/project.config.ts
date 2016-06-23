@@ -16,7 +16,7 @@ export class ProjectConfig extends SeedConfig {
     this.APP_TITLE = 'Reparaciones';
     let additional_deps: InjectableDependency[] = [
       { src: 'ng2-bootstrap/bundles/ng2-bootstrap', inject: 'lib' },
-      { src: 'bootstrap/dist/css/bootstrap.css', inject: true }
+      { src: 'bootstrap/dist/css/bootstrap.css', inject: true },
       // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       // {src: 'lodash/lodash.min.js', inject: 'libs'},
     ];

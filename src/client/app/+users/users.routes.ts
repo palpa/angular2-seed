@@ -1,9 +1,8 @@
-import { HomeComponent } from './index';
+import { UsersComponent } from './index';
 
-export const HomeRoutes = [
+export const UsersRoutes = [
   {
-    path: '',
-    component: HomeComponent,
-    index: true
+    path: 'users',
+    component: UsersComponent
   },
 ];
