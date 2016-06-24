@@ -8,6 +8,16 @@ import {UsersService} from './users.service';
  */
 @Component({
   template: `
+    <style>
+      h2 {
+        font-size: 12px;
+        font-weight: bold;
+      }
+      :host {
+        display: block;
+        padding: 0 16px;
+      }
+    </style>
     <h2>USUARIOS</h2>
     <router-outlet></router-outlet>
   `,

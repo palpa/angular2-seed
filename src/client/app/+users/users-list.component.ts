@@ -10,7 +10,7 @@ import { UsersService } from './users.service';
   moduleId: module.id,
   selector: 'sd-users',
   templateUrl: 'users-list.component.html',
-  //styleUrls: ['users.component.css'],
+  styleUrls: ['users-list.component.css'],
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class UsersListComponent {
