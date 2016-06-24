@@ -1,8 +1,14 @@
-import { UsersComponent } from './index';
+import {UsersComponent, UsersListComponent} from './index';
 
 export const UsersRoutes = [
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    children: [
+      {
+        path: '',
+        component: UsersListComponent
+      }
+    ]
   },
 ];
