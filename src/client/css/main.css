@@ -61,3 +61,13 @@ button {
 button:hover {
   background-color: #28739e;
 }
+
+/* items class */
+.items {
+  width: 24em;
+}
+.items li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
