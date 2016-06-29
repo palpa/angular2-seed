@@ -9,6 +9,6 @@
       (click)="onSelect(user)"
   class="list-group-item">
     {{user.name}}
-    <span *ngIf="isSelected(user)" style="float: right"><a style="color: white">Editar</a> | <a  style="color: white">Borrar</a></span>
+    <span *ngIf="isSelected(user)" style="float: right"><a (click)="edit(user)"  style="color: white">Editar</a> | <a (click)="delete(user)"  style="color: white">Borrar</a></span>
   </li>
 </ul>

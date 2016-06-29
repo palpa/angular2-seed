@@ -59,4 +59,12 @@ export class UsersListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/users'], {queryParams: {id: user.id}});
   }
 
+  delete(user) {
+    this.usersService.delete(user);
+  }
+
+  edit(user) {
+    this.usersService.edit(user);
+  }
+
 }

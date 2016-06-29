@@ -69,6 +69,26 @@ export class UsersService {
 
   }
 
+  delete(user) {
+    this.http.delete(this.usersUrl + '/' + user.id)
+      .subscribe((data) => {
+        console.log('delete response' + data);
+        const index = this.names.indexOf(user);
+        if (index > -1) {
+          this.names.splice(index, 1);
+        }
+      });
+  }
+
+  edit(user) {
+    const newName = 'nuevo pepe';
+    this.http.put(this.usersUrl + '/' + user.id, newName)
+      .subscribe((data) => {
+        user.name = newName;
+        console.log('update response' + data);
+      });
+  }
+
   private jsonResponse(res:Response) {
     return res.json();
   }
