@@ -58,10 +58,7 @@ export class UsersService {
    * @param {string} value - The name to add.
    */
   add(value:string):void {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
-
-    this.http.post(this.usersUrl, value, options)
+    this.http.post(this.usersUrl, value, this.jsonRequestOptions())
       .map(this.jsonResponse)
       .subscribe((data) => {
         this.names.push(data)
@@ -69,10 +66,10 @@ export class UsersService {
 
   }
 
-  delete(user) {
+  remove(user) {
     this.http.delete(this.usersUrl + '/' + user.id)
       .subscribe((data) => {
-        console.log('delete response' + data);
+        console.log('remove response' + data);
         const index = this.names.indexOf(user);
         if (index > -1) {
           this.names.splice(index, 1);
@@ -81,12 +78,17 @@ export class UsersService {
   }
 
   edit(user) {
-    const newName = 'nuevo pepe';
-    this.http.put(this.usersUrl + '/' + user.id, newName)
+    const newUserData = {username: 'nuevo pepe', lastUpdated: user.lastUpdated};
+    this.http.put(this.usersUrl + '/' + user.id, newUserData, this.jsonRequestOptions())
       .subscribe((data) => {
-        user.name = newName;
+        user.username = newUserData.username;
         console.log('update response' + data);
       });
+  }
+
+  private jsonRequestOptions(){
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return new RequestOptions({headers: headers});
   }
 
   private jsonResponse(res:Response) {

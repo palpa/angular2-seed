@@ -7,8 +7,9 @@
   <li *ngFor="let user of usersService.get() | async"
       [class.active]="isSelected(user)"
       (click)="onSelect(user)"
-  class="list-group-item">
-    {{user.name}}
-    <span *ngIf="isSelected(user)" style="float: right"><a (click)="edit(user)"  style="color: white">Editar</a> | <a (click)="delete(user)"  style="color: white">Borrar</a></span>
+      class="list-group-item">
+    {{user.username}}
+    <span *ngIf="isSelected(user)" style="float: right"><a (click)="edit(user)" style="color: white">Editar</a> | <a
+      (click)="remove(user)" style="color: white">Borrar</a></span>
   </li>
 </ul>
