@@ -4,6 +4,7 @@ import {Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
+import {User} from "./User";
 
 /**
  * This class provides the NameList service with methods to read names and add names.
@@ -15,7 +16,7 @@ export class UsersService {
    * The array of initial names provided by the service.
    * @type {Array}
    */
-  names:string[] = [];
+  names:User[] = [];
 
   /**
    * Contains the currently pending request.
@@ -53,6 +54,11 @@ export class UsersService {
     return this.request;
   }
 
+  getUser(id:number):Observable<User> {
+    return this.http.get(this.usersUrl + '/' + id)
+      .map(this.jsonResponse);
+  }
+
   /**
    * Adds the given name to the array of names.
    * @param {string} value - The name to add.
@@ -77,16 +83,17 @@ export class UsersService {
       });
   }
 
-  edit(user) {
-    const newUserData = {username: 'nuevo pepe', lastUpdated: user.lastUpdated};
-    this.http.put(this.usersUrl + '/' + user.id, newUserData, this.jsonRequestOptions())
-      .subscribe((data) => {
-        user.username = newUserData.username;
-        console.log('update response' + data);
+  edit(newUserData:User) {
+    return this.http.put(this.usersUrl + '/' + newUserData.id, newUserData, this.jsonRequestOptions())
+      .map(this.jsonResponse)
+      .map((user:User) => {
+        const oldUser = this.names.find((oldUser:User) => oldUser.id === user.id);
+        Object.assign(oldUser, user);
+        return user;
       });
   }
 
-  private jsonRequestOptions(){
+  private jsonRequestOptions() {
     const headers = new Headers({'Content-Type': 'application/json'});
     return new RequestOptions({headers: headers});
   }
@@ -94,5 +101,6 @@ export class UsersService {
   private jsonResponse(res:Response) {
     return res.json();
   }
+
 }
 

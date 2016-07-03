@@ -1,0 +1,14 @@
+<div *ngIf="user">
+  <h3>"{{editName}}"</h3>
+  <div>
+    <label>Id: </label>{{user.id}}
+  </div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="editName" placeholder="name"/>
+  </div>
+  <p>
+    <button (click)="save(user)">Save</button>
+    <button (click)="cancel()">Cancel</button>
+  </p>
+</div>
