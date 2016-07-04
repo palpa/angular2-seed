@@ -17,6 +17,7 @@ import {User} from "./User";
 export class UserFormComponent implements OnInit, OnDestroy {
   user:User;
   editName:string;
+  error:string;
   private sub:any;
 
   /**
@@ -50,8 +51,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
   save() {
     const editedUser:User = Object.assign({}, this.user, {username: this.editName});
     this.usersService.edit(editedUser).subscribe(() => {
-      this.gotoUserList();
-    });
+        this.gotoUserList();
+      }, (err) => this.error = err ? err.json().message : null
+    );
   }
 
   gotoUserList() {

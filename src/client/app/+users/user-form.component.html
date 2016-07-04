@@ -7,8 +7,9 @@
     <label>Name: </label>
     <input [(ngModel)]="editName" placeholder="name"/>
   </div>
+  <span *ngIf="error" style="color: red;">{{error}}</span>
   <p>
-    <button (click)="save(user)">Save</button>
-    <button (click)="cancel()">Cancel</button>
+    <button (click)="save(user)">Guardar</button>
+    <button (click)="cancel()">Cancelar</button>
   </p>
 </div>
