@@ -6,9 +6,6 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
 import {User} from "./User";
 
-/**
- * This class provides the NameList service with methods to read names and add names.
- */
 @Injectable()
 export class UsersService {
 
@@ -19,11 +16,6 @@ export class UsersService {
   constructor(private http:Http) {
   }
 
-  /**
-   * Returns an Observable for the HTTP GET request for the JSON resource. If there was a previous successful request
-   * (the local names array is defined and has elements), the cached version is returned
-   * @return {string[]} The Observable for the HTTP request.
-   */
   init():Observable<string[]> {
     if (this.users && this.users.length) {
       return Observable.from([this.users]);
@@ -44,10 +36,6 @@ export class UsersService {
       .map(this.jsonResponse);
   }
 
-  /**
-   * Adds the given name to the array of names.
-   * @param {string} value - The name to add.
-   */
   add(value:string):void {
     this.http.post(this.usersUrl, value, this.jsonRequestOptions())
       .map(this.jsonResponse)
