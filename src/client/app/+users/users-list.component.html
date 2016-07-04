@@ -4,7 +4,7 @@
 </form>
 
 <ul class="list-group items">
-  <li *ngFor="let user of usersService.get() | async"
+  <li *ngFor="let user of usersService.users"
       [class.active]="isSelected(user)"
       (click)="onSelect(user)"
       class="list-group-item">

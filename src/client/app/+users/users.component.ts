@@ -25,4 +25,7 @@ import {UsersService} from './users.service';
   providers: [UsersService]
 })
 export class UsersComponent {
+  constructor(service:UsersService) {
+    service.init().subscribe();
+  }
 }
