@@ -33,10 +33,14 @@ export class UserFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       let id = +params['id']; // (+) converts string 'id' to a number
-      this.usersService.getUser(id).subscribe(user => {
-        this.user     = user;
-        this.editName = user.username;
-      });
+      this.loadUser(id);
+    });
+  }
+
+  private loadUser(id:number) {
+    this.usersService.getUser(id).subscribe(user => {
+      this.user     = user;
+      this.editName = user.username;
     });
   }
 
@@ -46,6 +50,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   cancel() {
     this.gotoUserList();
+  }
+
+  reload() {
+    this.loadUser(this.user.id);
+    this.error = null;
   }
 
   save() {
