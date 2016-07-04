@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 
 import {UsersService} from './users.service';
 
@@ -12,7 +11,7 @@ import {UsersService} from './users.service';
   selector: 'sd-users',
   templateUrl: 'users-list.component.html',
   styleUrls: ['users-list.component.css'],
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class UsersListComponent implements OnInit, OnDestroy {
 
@@ -61,11 +60,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   remove(user) {
     this.usersService.remove(user);
-  }
-
-  edit(user) {
-    console.log('navigate', user);
-    this.router.navigateByUrl('/users/' + user.id);
   }
 
 }

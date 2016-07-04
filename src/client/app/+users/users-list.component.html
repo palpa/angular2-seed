@@ -9,7 +9,7 @@
       (click)="onSelect(user)"
       class="list-group-item">
     {{user.username}}
-    <span *ngIf="isSelected(user)" style="float: right"><a (click)="edit(user)" style="color: white">Editar</a> | <a
+    <span *ngIf="isSelected(user)" style="float: right"><a [routerLink]="['/users', user.id]" style="color: white">Editar</a> | <a
       (click)="remove(user)" style="color: white">Borrar</a></span>
   </li>
 </ul>
