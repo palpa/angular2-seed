@@ -4,12 +4,14 @@ import {Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import {User} from "./User";
 
 @Injectable()
 export class UsersService {
 
-  users:User[] = [];
+  users:User[]     = [];
   private request:Observable<string[]>;
   private usersUrl = 'http://localhost:8080/api/users';
 
@@ -33,7 +35,9 @@ export class UsersService {
 
   getUser(id:number):Observable<User> {
     return this.http.get(this.usersUrl + '/' + id)
-      .map(this.jsonResponse);
+      .map(this.jsonResponse).catch(err => {
+        return this.serverError(err, this.localUserById(id));
+      });
   }
 
   add(value:string):void {
@@ -46,24 +50,34 @@ export class UsersService {
   }
 
   remove(user) {
-    this.http.delete(this.usersUrl + '/' + user.id)
-      .subscribe((data) => {
+    return this.http.delete(this.usersUrl + '/' + user.id)
+      .map((data) => {
         console.log('remove response' + data);
-        const index = this.users.indexOf(user);
-        if (index > -1) {
-          this.users.splice(index, 1);
-        }
+        this.removeUserLocally(user);
+        return data;
+      }).catch(err => {
+        return this.serverError(err, user);
       });
   }
 
   edit(newUserData:User) {
     return this.http.put(this.usersUrl + '/' + newUserData.id, newUserData, this.jsonRequestOptions())
       .map(this.jsonResponse)
-      .map((user:User) => {
-        const oldUser = this.users.find((oldUser:User) => oldUser.id === user.id);
-        Object.assign(oldUser, user);
-        return user;
+      .map((updatedUser:User) => {
+        this.updateLocalUser(updatedUser);
+        return updatedUser;
       });
+  }
+
+  private updateLocalUser(updatedUser:User) {
+    const localUser = this.localUserById(updatedUser.id);
+    if (localUser) {
+      Object.assign(localUser, updatedUser);
+    }
+  }
+
+  private localUserById(id:number) {
+    return this.users.find((user:User) => user.id === id)
   }
 
   private jsonRequestOptions() {
@@ -73,6 +87,25 @@ export class UsersService {
 
   private jsonResponse(res:Response) {
     return res.json();
+  }
+
+  private serverError(err:any, user):Observable<string> {
+    console.error('sever error:', err);  // debug
+    if (err instanceof Response) {
+      const errorResponse = err.json();
+      if (errorResponse.code === 404) {
+        this.removeUserLocally(user);
+      }
+      return Observable.throw(errorResponse.message || 'backend server error');
+    }
+    return Observable.throw(err || 'backend server error');
+  }
+
+  private removeUserLocally(user) {
+    const index = this.users.indexOf(user);
+    if (index > -1) {
+      this.users.splice(index, 1);
+    }
   }
 
 }

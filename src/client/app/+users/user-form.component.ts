@@ -41,7 +41,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.usersService.getUser(id).subscribe(user => {
       this.user     = user;
       this.editName = user.username;
-    }, err => this.gotoUserList());
+    }, errMsg => {
+      alert(errMsg);
+      this.gotoUserList()
+    });
   }
 
   ngOnDestroy() {

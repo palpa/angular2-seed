@@ -59,7 +59,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   remove(user) {
-    this.usersService.remove(user);
+    this.usersService.remove(user).subscribe(() => {
+      }, (errMsg) => alert(errMsg)
+    );
   }
 
 }
