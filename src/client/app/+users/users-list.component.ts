@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 
 import {UsersService} from './users.service';
+import {User} from './User';
 
 /**
  * This class represents the lazy loaded UsersComponent.
@@ -50,17 +51,17 @@ export class UsersListComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  isSelected(user) {
+  isSelected(user:User) {
     return user.id === this.selectedId;
   }
 
-  onSelect(user) {
+  onSelect(user:User) {
     this.router.navigate(['/users'], {queryParams: {id: user.id}});
   }
 
-  remove(user) {
-    this.usersService.remove(user).subscribe(() => {
-      }, (errMsg) => alert(errMsg)
+  remove(user:User) {
+    this.usersService.remove(user).subscribe(() => console.log('ok')
+      , (errMsg) => alert(errMsg)
     );
   }
 

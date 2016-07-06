@@ -6,19 +6,19 @@ import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {User} from "./User";
+import {User} from './User';
 
 @Injectable()
 export class UsersService {
 
   users:User[]     = [];
-  private request:Observable<string[]>;
+  private request:Observable<User[]>;
   private usersUrl = 'http://localhost:8080/api/users';
 
   constructor(private http:Http) {
   }
 
-  init():Observable<string[]> {
+  init():Observable<User[]> {
     if (this.users && this.users.length) {
       return Observable.from([this.users]);
     }
@@ -33,7 +33,7 @@ export class UsersService {
     return this.request;
   }
 
-  getUser(id:number):Observable<User> {
+  getUser(id:number):Observable<any> {
     return this.http.get(this.usersUrl + '/' + id)
       .map(this.jsonResponse).catch(err => {
         return this.serverError(err, this.localUserById(id));
@@ -44,12 +44,12 @@ export class UsersService {
     this.http.post(this.usersUrl, value, this.jsonRequestOptions())
       .map(this.jsonResponse)
       .subscribe((data) => {
-        this.users.push(data)
+        this.users.push(data);
       });
 
   }
 
-  remove(user) {
+  remove(user:User) {
     return this.http.delete(this.usersUrl + '/' + user.id)
       .map((data) => {
         console.log('remove response' + data);
@@ -77,7 +77,7 @@ export class UsersService {
   }
 
   private localUserById(id:number) {
-    return this.users.find((user:User) => user.id === id)
+    return this.users.find((user:User) => user.id === id);
   }
 
   private jsonRequestOptions() {
@@ -89,7 +89,7 @@ export class UsersService {
     return res.json();
   }
 
-  private serverError(err:any, user):Observable<string> {
+  private serverError(err:any, user:User):Observable<string> {
     console.error('sever error:', err);  // debug
     if (err instanceof Response) {
       const errorResponse = err.json();
@@ -101,7 +101,7 @@ export class UsersService {
     return Observable.throw(err || 'backend server error');
   }
 
-  private removeUserLocally(user) {
+  private removeUserLocally(user:User) {
     const index = this.users.indexOf(user);
     if (index > -1) {
       this.users.splice(index, 1);

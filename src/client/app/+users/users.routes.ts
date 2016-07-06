@@ -1,5 +1,5 @@
 import {UsersComponent, UsersListComponent} from './index';
-import {UserFormComponent} from "./user-form.component";
+import {UserFormComponent} from './user-form.component';
 
 export const UsersRoutes = [
   {

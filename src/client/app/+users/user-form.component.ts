@@ -3,7 +3,7 @@ import {REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {UsersService} from './users.service';
-import {User} from "./User";
+import {User} from './User';
 
 /**
  * This class represents the lazy loaded UsersComponent.
@@ -37,16 +37,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadUser(id:number) {
-    this.usersService.getUser(id).subscribe(user => {
-      this.user     = user;
-      this.editName = user.username;
-    }, errMsg => {
-      alert(errMsg);
-      this.gotoUserList()
-    });
-  }
-
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -71,5 +61,15 @@ export class UserFormComponent implements OnInit, OnDestroy {
   gotoUserList() {
     const userId = this.user ? this.user.id : null;
     this.router.navigate(['/users'], {queryParams: {id: userId}});
+  }
+
+  private loadUser(id:number) {
+    this.usersService.getUser(id).subscribe(user => {
+      this.user     = user;
+      this.editName = user.username;
+    }, errMsg => {
+      alert(errMsg);
+      this.gotoUserList();
+    });
   }
 }
