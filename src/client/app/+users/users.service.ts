@@ -1,19 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import {User} from './User';
+import {Injectable} from "@angular/core";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/observable/from";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
+import {User} from "./User";
 
 @Injectable()
 export class UsersService {
 
   users:User[]     = [];
   private request:Observable<User[]>;
-  private usersUrl = 'http://localhost:8080/api/users';
+  private usersUrl = 'http://localhost:8080/api/workers';
 
   constructor(private http:Http) {
   }
@@ -41,7 +40,7 @@ export class UsersService {
   }
 
   add(value:string):void {
-    this.http.post(this.usersUrl, value, this.jsonRequestOptions())
+    this.http.post(this.usersUrl, {username: value}, this.jsonRequestOptions())
       .map(this.jsonResponse)
       .subscribe((data) => {
         this.users.push(data);

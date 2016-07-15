@@ -18,7 +18,7 @@ import {UsersService} from './users.service';
         padding: 0 16px;
       }
     </style>
-    <h2>USUARIOS</h2>
+    <h2>Reparadores</h2>
     <router-outlet></router-outlet>
   `,
   directives: [ROUTER_DIRECTIVES],

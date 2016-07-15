@@ -1,8 +1,9 @@
+<div>
 <form (submit)="addUser()">
-  <input [(ngModel)]="newName" name="newName" placeholder="Usuario">
+  <input [(ngModel)]="newName" name="newName" placeholder="Nombre de Usuario">
   <button type="submit">Nuevo</button>
 </form>
-
+</div>
 <ul class="list-group items">
   <li *ngFor="let user of usersService.users"
       [class.active]="isSelected(user)"
