@@ -1,0 +1,53 @@
+<div class="row bottom-buffer">
+  <div class="col-sm-2">
+    <button class="btn btn-primary" type="button">
+      <span class="glyphicon glyphicon-plus-sign"></span> Nueva Reparación
+    </button>
+  </div>
+</div>
+
+<div class="row" *ngIf="service.reparations.length === 0">
+  <div class="col-sm-12">
+    <hr>
+    <p>No se encontraron reparaciones...</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="service.reparations.length !== 0">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>#Serie</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Responsable</th>
+          <th>Creado</th>
+          <th>Actualizado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let reparation of service.reparations">
+          <td>{{reparation.deviceSerialNumber}}</td>
+          <td>{{reparation.deviceTypeName}}</td>
+          <td>{{reparation.currentStateName}}</td>
+          <td>{{reparation.currentResponsibleName}}</td>
+          <td>{{reparation.creationDate | date}}</td>
+          <td>{{reparation.lastUpdated | date}}</td>
+          <td style="white-space: nowrap;">
+            <a tooltip="Editar"
+               class="table-link btn btn-xs btn-warning">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a tooltip="Borrar"
+               class="table-link btn btn-xs btn-danger">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
