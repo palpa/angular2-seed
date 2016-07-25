@@ -1,10 +1,21 @@
-import { RouterConfig } from '@angular/router';
+import {RouterConfig} from '@angular/router';
+import {ReparationsComponent} from './index';
+import {ReparationFormComponent} from './reparation-form.component';
+import {ReparationListComponent} from './reparation-list.component';
 
-import { ReparationsComponent } from './index';
-
-export const ReparationsRoutes: RouterConfig = [
+export const ReparationsRoutes:RouterConfig = [
   {
     path: 'reparations',
-    component: ReparationsComponent
-  },
+    component: ReparationsComponent,
+    children: [
+      {
+        path: 'new',
+        component: ReparationFormComponent
+      },
+      {
+        path: '',
+        component: ReparationListComponent
+      }
+    ]
+  }
 ];

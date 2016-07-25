@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { HTTP_PROVIDERS } from '@angular/http';
-
-import { Config, NameListService, NavbarComponent, ToolbarComponent } from './shared/index';
+import {Component, ViewContainerRef} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {HTTP_PROVIDERS} from '@angular/http';
+import {Config, NameListService, NavbarComponent, ToolbarComponent} from './shared/index';
 
 /**
  * This class represents the main application component. Within the @Routes annotation is the configuration of the
@@ -16,7 +15,11 @@ import { Config, NameListService, NavbarComponent, ToolbarComponent } from './sh
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
 })
 export class AppComponent {
-  constructor() {
+  viewContainerRef:ViewContainerRef;
+
+  public constructor(viewContainerRef:ViewContainerRef) {
+    // You need this small hack in order to catch application root view container ref
+    this.viewContainerRef = viewContainerRef;
     console.log('Environment config', Config);
   }
 }

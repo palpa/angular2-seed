@@ -1,0 +1,81 @@
+<div>
+  <!-- Form Name -->
+  <div class="modal-header dialog-header">
+    <legend style="margin-bottom:0; border-bottom: 0;">Nueva Reparacion</legend>
+  </div>
+
+  <div class="modal-body">
+    <form class="form-horizontal" role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label" for="failureInput">Falla</label>
+
+              <input id="failureInput" formControlName="failure" type="text"
+                     placeholder="Ingrese la descripción de la falla" class="form-control input-md">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="serialNumberInput">Nro de Serie</label>
+
+              <input id="serialNumberInput" formControlName="deviceSerialNumber" type="text"
+                     placeholder="Ingrese nro de serie" class="form-control input-md">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="responsibleInput">Responsable</label>
+
+              <select id="responsibleInput" formControlName="responsibleShopWorkerId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of responsibles" [value]="obj.id">{{obj.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="deviceTypeInput">Tipo de Equipo</label>
+
+              <select id="deviceTypeInput" formControlName="deviceTypeId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of deviceTypes" [value]="obj.id">{{obj.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="reparationCycleInput">Ciclo de Reparación</label>
+
+              <select id="reparationCycleInput" formControlName="reparationCycleId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of reparationCycles" [value]="obj.id">{{obj.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-offset-7 col-md-5">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Confirmar</button>
+              <button type="button" class="btn btn-danger">Restablecer</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-warning">Editar</button>
+    <button class="btn btn-success">Cerrar</button>
+  </div>
+</div>
