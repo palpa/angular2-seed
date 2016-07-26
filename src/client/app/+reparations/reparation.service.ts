@@ -12,7 +12,7 @@ export class ReparationService {
 
   reparations:Reparation[] = [];
   private request:Observable<Reparation[]>;
-  private usersUrl         = 'http://localhost:8080/api/reparations';
+  private usersUrl = 'http://localhost:8080/api/reparations';
 
   constructor(private http:Http) {
   }
@@ -39,13 +39,12 @@ export class ReparationService {
       });
   }
 
-  add(value:string):void {
-    this.http.post(this.usersUrl, {username: value}, this.jsonRequestOptions())
+  add(value:any):void {
+    this.http.post(this.usersUrl, value, this.jsonRequestOptions())
       .map(this.jsonResponse)
       .subscribe((data) => {
         this.reparations.push(data);
       });
-
   }
 
   remove(user:Reparation) {

@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
+import {ReparationService} from './reparation.service';
 import {User, UsersService} from '../+users/index';
 import {DeviceType, DeviceTypesService} from '../+device-types/index';
 import {ReparationCycle, ReparationCyclesService} from '../+reparation-cycles/index';
@@ -17,7 +19,9 @@ export class ReparationFormComponent {
   reparationCycles:Observable<ReparationCycle[]>;
   form:FormGroup;
 
-  constructor(fb:FormBuilder,
+  constructor(private reparations:ReparationService,
+              private router:Router,
+              fb:FormBuilder,
               responsibles:UsersService,
               deviceTypes:DeviceTypesService,
               reparationCycles:ReparationCyclesService) {
@@ -35,7 +39,9 @@ export class ReparationFormComponent {
   }
 
   onSubmit() {
-    console.log('model-based form submitted');
-    console.log(this.form);
+    const value = this.form.value;
+    console.log('submitted:', value);
+    this.reparations.add(value);
+    this.router.navigate(['/reparations']);
   }
 }
