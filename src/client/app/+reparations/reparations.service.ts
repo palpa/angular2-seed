@@ -8,4 +8,8 @@ export class ReparationsService extends BaseService<Reparation> {
   constructor(http:Http) {
     super(http, 'reparations');
   }
+
+  getHistoricStates(id:number) {
+    return this.get(id, 'historic-states');
+  }
 }

@@ -21,6 +21,11 @@ export abstract class BaseService <T> {
       .map(this.jsonResponse);
   }
 
+  protected get(id:number, subResource:string) {
+    return this.http.get(this.endpoint + '/' + id + '/' + subResource)
+      .map(this.jsonResponse);
+  }
+
   private get endpoint() {
     return this.baseUrl + this.resource;
   }

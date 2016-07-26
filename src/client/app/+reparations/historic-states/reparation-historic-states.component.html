@@ -1,0 +1,41 @@
+<div class="row" *ngIf="list.length === 0">
+  <div class="col-sm-12">
+    <p>No se encontraron estados previos...</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="list.length !== 0">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Responsable</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+          <th>Comentarios</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of list">
+          <td>{{item.name}}</td>
+          <td>{{item.responsible}}</td>
+          <td>{{item.startDate | date}}</td>
+          <td>{{item.endDate | date}}</td>
+          <td>{{item.comments}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row bottom-buffer">
+  <div class="col-sm-2">
+    <a [routerLink]="['/reparations']" class="btn btn-primary" type="button">
+      Volver
+    </a>
+  </div>
+</div>
+
