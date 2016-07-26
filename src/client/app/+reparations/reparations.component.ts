@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {ReparationsService} from './reparation.service';
 import {ROUTER_DIRECTIVES} from '@angular/router';
+import {ReparationsService} from './index';
 
 /**
  * This class represents the lazy loaded ReparationsComponent.

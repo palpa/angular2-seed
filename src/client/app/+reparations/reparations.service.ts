@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {BaseService} from '../shared/index';
-import {Reparation} from './Reparation';
+import {Reparation} from './index';
 
 @Injectable()
 export class ReparationsService extends BaseService<Reparation> {

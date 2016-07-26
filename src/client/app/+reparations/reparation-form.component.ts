@@ -2,10 +2,10 @@ import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-import {ReparationsService} from './reparation.service';
 import {User, UsersService} from '../+users/index';
 import {DeviceType, DeviceTypesService} from '../+device-types/index';
 import {ReparationCycle, ReparationCyclesService} from '../+reparation-cycles/index';
+import {ReparationsService} from './index';
 
 @Component({
   moduleId: module.id,
