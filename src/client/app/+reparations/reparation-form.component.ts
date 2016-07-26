@@ -3,6 +3,7 @@ import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators, FormGroup} from '@ang
 import {Observable} from 'rxjs/Rx';
 import {User, UsersService} from '../+users/index';
 import {DeviceType, DeviceTypesService} from '../+device-types/index';
+import {ReparationCycle, ReparationCyclesService} from '../+reparation-cycles/index';
 
 @Component({
   moduleId: module.id,
@@ -13,14 +14,16 @@ import {DeviceType, DeviceTypesService} from '../+device-types/index';
 export class ReparationFormComponent {
   responsibles:Observable<User[]>;
   deviceTypes:Observable<DeviceType[]>;
-  reparationCycles = [{id: 1, name: 'Normal'}];
+  reparationCycles:Observable<ReparationCycle[]>;
   form:FormGroup;
 
   constructor(fb:FormBuilder,
               responsibles:UsersService,
-              deviceTypes:DeviceTypesService) {
+              deviceTypes:DeviceTypesService,
+              reparationCycles:ReparationCyclesService) {
     this.responsibles = responsibles.getAll();
     this.deviceTypes = deviceTypes.getAll();
+    this.reparationCycles = reparationCycles.getAll();
 
     this.form = fb.group({
       'failure': ['', Validators.required],

@@ -56,7 +56,7 @@
 
               <select id="reparationCycleInput" formControlName="reparationCycleId"
                       class="form-control input-md">
-                <option *ngFor="let obj of reparationCycles" [value]="obj.id">{{obj.name}}</option>
+                <option *ngFor="let obj of reparationCycles | async" [value]="obj.id">{{obj.name}}</option>
               </select>
             </div>
           </div>
