@@ -46,7 +46,7 @@
 
               <select id="deviceTypeInput" formControlName="deviceTypeId"
                       class="form-control input-md">
-                <option *ngFor="let obj of deviceTypes" [value]="obj.id">{{obj.name}}</option>
+                <option *ngFor="let obj of deviceTypes | async" [value]="obj.id">{{obj.name}}</option>
               </select>
             </div>
           </div>
