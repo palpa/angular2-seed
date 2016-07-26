@@ -1,4 +1,4 @@
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
@@ -16,11 +16,21 @@ export abstract class BaseService <T> {
       .map(this.jsonResponse);
   }
 
-  protected get endpoint() {
+  public add(value:any):Observable<T> {
+    return this.http.post(this.endpoint, value, this.jsonRequestOptions())
+      .map(this.jsonResponse);
+  }
+
+  private get endpoint() {
     return this.baseUrl + this.resource;
   }
 
-  protected jsonResponse(res:Response) {
+  private jsonResponse(res:Response) {
     return res.json();
+  }
+
+  private jsonRequestOptions() {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return new RequestOptions({headers: headers});
   }
 }

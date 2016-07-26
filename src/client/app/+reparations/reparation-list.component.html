@@ -6,14 +6,14 @@
   </div>
 </div>
 
-<div class="row" *ngIf="service.reparations.length === 0">
+<div class="row" *ngIf="list.length === 0">
   <div class="col-sm-12">
     <hr>
     <p>No se encontraron reparaciones...</p>
   </div>
 </div>
 
-<div class="row" *ngIf="service.reparations.length !== 0">
+<div class="row" *ngIf="list.length !== 0">
   <div class="col-sm-12">
     <div class="table-responsive">
       <table class="table table-hover">
@@ -28,13 +28,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let reparation of service.reparations">
-          <td>{{reparation.deviceSerialNumber}}</td>
-          <td>{{reparation.deviceTypeName}}</td>
-          <td>{{reparation.currentStateName}}</td>
-          <td>{{reparation.currentResponsibleName}}</td>
-          <td>{{reparation.creationDate | date}}</td>
-          <td>{{reparation.lastUpdated | date}}</td>
+        <tr *ngFor="let item of list">
+          <td>{{item.deviceSerialNumber}}</td>
+          <td>{{item.deviceTypeName}}</td>
+          <td>{{item.currentStateName}}</td>
+          <td>{{item.currentResponsibleName}}</td>
+          <td>{{item.creationDate | date}}</td>
+          <td>{{item.lastUpdated | date}}</td>
           <td style="white-space: nowrap;">
             <a tooltip="Editar"
                class="table-link btn btn-xs btn-warning">

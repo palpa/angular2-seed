@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ReparationService} from './reparation.service';
+import {Component} from '@angular/core';
+import {ReparationsService} from './reparation.service';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 
 /**
@@ -10,15 +10,8 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
   selector: 'sd-reparations',
   template: '<router-outlet></router-outlet>',
   styleUrls: ['reparations.component.css'],
-  providers: [ReparationService],
+  providers: [ReparationsService],
   directives: [ROUTER_DIRECTIVES]
 })
-export class ReparationsComponent implements OnInit {
-
-  constructor(private service:ReparationService) {
-  }
-
-  ngOnInit() {
-    this.service.init().subscribe();
-  }
+export class ReparationsComponent {
 }
