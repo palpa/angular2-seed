@@ -36,9 +36,9 @@
           <td>{{item.creationDate | date}}</td>
           <td>{{item.lastUpdated | date}}</td>
           <td style="white-space: nowrap;">
-            <a tooltip="Editar" [routerLink]="['/reparations', item.id, 'historic-states']"
-               class="table-link btn btn-xs btn-warning">
-              <span class="glyphicon glyphicon-pencil"></span>
+            <a tooltip="Estados Históricos" [routerLink]="['/reparations', item.id, 'historic-states']"
+               class="table-link btn btn-xs btn-info">
+              <span class="glyphicon glyphicon-folder-open"></span>
             </a>
             <a tooltip="Borrar"
                class="table-link btn btn-xs btn-danger">
