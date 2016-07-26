@@ -1,23 +1,22 @@
-import {Injectable} from "@angular/core";
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/from";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/observable/throw";
-import {User} from "./User";
+import {Injectable} from '@angular/core';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import {User} from './User';
 
 @Injectable()
 export class UsersService {
-
-  users:User[]     = [];
+  users:User[] = [];
   private request:Observable<User[]>;
   private usersUrl = 'http://localhost:8080/api/workers';
 
   constructor(private http:Http) {
   }
 
-  init():Observable<User[]> {
+  getAll():Observable<User[]> {
     if (this.users && this.users.length) {
       return Observable.from([this.users]);
     }
@@ -25,8 +24,8 @@ export class UsersService {
       this.request = this.http.get(this.usersUrl)
         .map(this.jsonResponse)
         .map((data:User[]) => {
-          this.request = null;
-          return this.users = data;
+          this.users = data;
+          return data;
         });
     }
     return this.request;

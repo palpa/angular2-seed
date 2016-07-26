@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators, FormGroup} from '@angular/forms';
+import {User, UsersService} from '../+users/index';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   moduleId: module.id,
@@ -8,19 +10,21 @@ import {REACTIVE_FORM_DIRECTIVES, FormBuilder, Validators, FormGroup} from '@ang
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class ReparationFormComponent {
+  responsibles:Observable<User[]>;
+  deviceTypes = [{id: 1, name: 'calefon'}];
+  reparationCycles = [{id: 1, name: 'Normal'}];
   form:FormGroup;
 
-  public deviceTypes      = [{id: 1, name: 'calefon'}];
-  public responsibles     = [{id: 1, name: 'juan'}];
-  public reparationCycles = [{id: 1, name: 'Normal'}];
+  constructor(fb:FormBuilder,
+              responsibles:UsersService) {
+    this.responsibles = responsibles.getAll();
 
-  constructor(fb:FormBuilder) {
     this.form = fb.group({
       'failure': ['', Validators.required],
       'deviceSerialNumber': ['', Validators.required],
-      'responsibleShopWorkerId': [],
-      'deviceTypeId': [],
-      'reparationCycleId': []
+      'responsibleShopWorkerId': ['', Validators.required],
+      'deviceTypeId': ['', Validators.required],
+      'reparationCycleId': ['', Validators.required]
     });
   }
 

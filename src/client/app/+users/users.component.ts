@@ -21,11 +21,10 @@ import {UsersService} from './users.service';
     <h2>Reparadores</h2>
     <router-outlet></router-outlet>
   `,
-  directives: [ROUTER_DIRECTIVES],
-  providers: [UsersService]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class UsersComponent {
   constructor(service:UsersService) {
-    service.init().subscribe();
+    service.getAll().subscribe();
   }
 }

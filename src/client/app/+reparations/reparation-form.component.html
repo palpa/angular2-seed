@@ -33,7 +33,7 @@
 
               <select id="responsibleInput" formControlName="responsibleShopWorkerId"
                       class="form-control input-md">
-                <option *ngFor="let obj of responsibles" [value]="obj.id">{{obj.name}}</option>
+                <option *ngFor="let obj of responsibles | async" [value]="obj.id">{{obj.username}}</option>
               </select>
             </div>
           </div>
