@@ -1,0 +1,65 @@
+<div>
+  <div class="modal-header dialog-header">
+    <legend style="margin-bottom:0; border-bottom: 0;">Cambio de Estado de Reparación</legend>
+  </div>
+
+  <div class="modal-body">
+    <form class="form-horizontal" role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label" for="commentsInput">Comentario</label>
+
+              <textarea id="commentsInput" formControlName="comments" class="form-control input-md"
+                        placeholder="Ingrese comentario..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="currentReparationStateInput">Estado Actual</label>
+
+              <input id="currentReparationStateInput" name="currentReparationState" type="text"
+                     value="{{item ? item.currentStateName : ''}}" class="form-control input-md" disabled>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="newReparationStateInput">Nuevo Estado</label>
+
+              <select id="newReparationStateInput" formControlName="newReparationStateDescId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of newValidStates | async" [value]="obj.id">{{obj.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label" for="responsibleInput">Responsable</label>
+
+              <select id="responsibleInput" formControlName="responsibleShopWorkerId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of responsibles | async" [value]="obj.id">{{obj.username}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-offset-7 col-md-5">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Confirmar</button>
+              <button class="btn btn-success" (click)="goBack()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

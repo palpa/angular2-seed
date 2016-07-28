@@ -21,9 +21,23 @@ export abstract class BaseService <T> {
       .map(this.jsonResponse);
   }
 
-  protected get(id:number, subResource:string) {
-    return this.http.get(this.endpoint + '/' + id + '/' + subResource)
+  public get(id:number):Observable<T> {
+    return this.http.get(this.endpoint + '/' + id)
       .map(this.jsonResponse);
+  }
+
+  protected getSubResource(id:number, subResource:string):Observable<any> {
+    return this.http.get(this.subResource(id, subResource))
+      .map(this.jsonResponse);
+  }
+
+  protected postSubResource(id:number, subResource:string, value:any) {
+    return this.http.post(this.subResource(id, subResource), value, this.jsonRequestOptions())
+      .map(this.jsonResponse);
+  }
+
+  private subResource(id:number, subResource:string) {
+    return this.endpoint + '/' + id + '/' + subResource;
   }
 
   private get endpoint() {
