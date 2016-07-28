@@ -12,12 +12,18 @@ import {Observable} from 'rxjs/Rx';
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class UserFormComponent implements OnInit, OnDestroy {
-  worker:User;
   error:string;
   form:FormGroup;
+
+  private emptyItem:User = {
+    id: -1,
+    username: '',
+    lastUpdated: null
+  };
+  private item:User;
   private sub:any;
 
-  constructor(private usersService:UsersService,
+  constructor(private service:UsersService,
               private fb:FormBuilder,
               private route:ActivatedRoute,
               private router:Router) {
@@ -25,17 +31,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      const id = +params['id'];
-      if (Number.isNaN(id)) {
-        this.worker = {
-          id: -1,
-          username: '',
-          lastUpdated: null
-        };
-        this.buildForm(this.worker);
-      }
-      else
-        this.loadUser(id);
+      this.init(+params['id']);
     });
   }
 
@@ -44,7 +40,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     console.log('submitted:', value);
 
     const operation:Observable = (this.editing()) ?
-      this.usersService.edit(this.worker.id, value) : this.usersService.add(value);
+      this.service.edit(this.item.id, value) : this.service.add(value);
 
     operation.subscribe(()=> {
         this.goBack();
@@ -53,12 +49,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   editing() {
-    return this.worker.id !== -1;
+    return this.item.id !== -1;
   }
 
   reload() {
-    this.loadUser(this.worker.id);
-    this.error = null;
+    this.init(this.item.id);
   }
 
   cancel() {
@@ -69,17 +64,27 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  private loadUser(id:number) {
-    this.usersService.get(id).subscribe(worker => {
-      this.worker = worker;
-      this.buildForm(worker);
+  private init(id:number) {
+    this.error = null;
+
+    this.loadItem(id).subscribe(item => {
+      this.item = item;
+      this.buildFormFor(item);
     }, errMsg => {
       alert(errMsg);
       this.goBack();
     });
   }
 
-  private buildForm(item:User) {
+  private loadItem(id:number):Observable<User> {
+    return (Number.isNaN(id)) ?
+      Observable.create((obs) => {
+        obs.next(this.emptyItem);
+        obs.complete();
+      }) : this.service.get(id);
+  }
+
+  private buildFormFor(item:User) {
     this.form = this.fb.group({'username': [item.username, Validators.required]});
 
     if (this.editing())
