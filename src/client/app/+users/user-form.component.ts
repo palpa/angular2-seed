@@ -43,18 +43,19 @@ export class UserFormComponent implements OnInit, OnDestroy {
     const value = this.form.value;
     console.log('submitted:', value);
 
-    const operation:Observable = (this.editing()) ? this.usersService.edit(this.worker.id, value) : this.usersService.add(value);
+    const operation:Observable = (this.editing()) ?
+      this.usersService.edit(this.worker.id, value) : this.usersService.add(value);
 
     operation.subscribe(()=> {
         this.goBack();
-      }, (err) => this.error = err ? err.json().message : null
+      }, (err) => this.error = err.message
     );
   }
 
   editing() {
     return this.worker.id !== -1;
   }
-  
+
   reload() {
     this.loadUser(this.worker.id);
     this.error = null;

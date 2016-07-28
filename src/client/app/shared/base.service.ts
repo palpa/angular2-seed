@@ -49,23 +49,34 @@ export abstract class BaseService <T> {
 
   private getJsonFrom(url:string) {
     return this.http.get(url)
-      .map(this.jsonResponse);
+      .map(this.jsonResponse)
+      .catch(err => this.serverError(err));
   }
 
   private postJsonTo(url:string, value:any):Observable<T> {
     return this.http.post(url, value, this.jsonRequestOptions())
-      .map(this.jsonResponse);
+      .map(this.jsonResponse)
+      .catch(err => this.serverError(err));
   }
 
   private putJsonTo(url:string, value:any):Observable<T> {
     return this.http.put(url, value, this.jsonRequestOptions())
-      .map(this.jsonResponse);
+      .map(this.jsonResponse)
+      .catch(err => this.serverError(err));
   }
 
   private deleteFrom(url:string) {
-    return this.http.delete(url).catch(err => {
-      return this.serverError(err);
-    });
+    return this.http.delete(url)
+      .catch(err => this.serverError(err));
+  }
+
+  private serverError(err:any):Observable<string> {
+    console.error('sever error:', err);  // debug
+    
+    const errorResponse = (err instanceof Response) ?
+      this.jsonResponse(err) : {message: err};
+
+    return Observable.throw({message: errorResponse.message || 'backend server error'});
   }
 
   private jsonResponse(res:Response) {
@@ -75,14 +86,5 @@ export abstract class BaseService <T> {
   private jsonRequestOptions() {
     const headers = new Headers({'Content-Type': 'application/json'});
     return new RequestOptions({headers: headers});
-  }
-
-  private serverError(err:any):Observable<string> {
-    console.error('sever error:', err);  // debug
-    if (err instanceof Response) {
-      const errorResponse = err.json();
-      return Observable.throw(errorResponse.message || 'backend server error');
-    }
-    return Observable.throw(err || 'backend server error');
   }
 }

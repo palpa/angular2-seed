@@ -21,7 +21,7 @@ export class UsersListComponent implements OnInit {
 
   removeItem(item:User) {
     this.service.remove(item).subscribe(() => this.ngOnInit()
-      , (errMsg) => alert(errMsg)
+      , (err) => alert(err.message)
     );
   }
 
