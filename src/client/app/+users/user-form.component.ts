@@ -39,7 +39,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     const value = this.form.value;
     console.log('submitted:', value);
 
-    const operation:Observable = (this.editing()) ?
+    const operation:Observable<User> = (this.editing()) ?
       this.service.edit(this.item.id, value) : this.service.add(value);
 
     operation.subscribe(()=> {
@@ -78,7 +78,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   private loadItem(id:number):Observable<User> {
     return (Number.isNaN(id)) ?
-      Observable.create((obs) => {
+      Observable.create((obs:any) => {
         obs.next(this.emptyItem);
         obs.complete();
       }) : this.service.get(id);

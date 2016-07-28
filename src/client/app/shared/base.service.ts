@@ -70,9 +70,9 @@ export abstract class BaseService <T> {
       .catch(err => this.serverError(err));
   }
 
-  private serverError(err:any):Observable<string> {
+  private serverError(err:any):Observable<any> {
     console.error('sever error:', err);  // debug
-    
+
     const errorResponse = (err instanceof Response) ?
       this.jsonResponse(err) : {message: err};
 
