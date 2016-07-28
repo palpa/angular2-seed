@@ -23,7 +23,7 @@ export abstract class BaseService <T> {
     return this.getJsonFrom(this.endpoint + '/' + id);
   }
 
-  public delete(item:any) {
+  public remove(item:any) {
     return this.deleteFrom(this.endpoint + '/' + item.id);
   }
 

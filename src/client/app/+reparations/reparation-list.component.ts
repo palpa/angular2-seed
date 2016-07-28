@@ -20,7 +20,7 @@ export class ReparationListComponent implements OnInit {
   }
 
   removeItem(item:Reparation) {
-    this.service.delete(item).subscribe(() => this.ngOnInit()
+    this.service.remove(item).subscribe(() => this.ngOnInit()
       , (errMsg) => alert(errMsg)
     );
   }
