@@ -23,6 +23,10 @@ export abstract class BaseService <T> {
     return this.getJsonFrom(this.endpoint + '/' + id);
   }
 
+  public edit(id:number, item:any):Observable<T> {
+    return this.putJsonTo(this.endpoint + '/' + id, item);
+  }
+
   public remove(item:any) {
     return this.deleteFrom(this.endpoint + '/' + item.id);
   }
@@ -53,8 +57,15 @@ export abstract class BaseService <T> {
       .map(this.jsonResponse);
   }
 
+  private putJsonTo(url:string, value:any):Observable<T> {
+    return this.http.put(url, value, this.jsonRequestOptions())
+      .map(this.jsonResponse);
+  }
+
   private deleteFrom(url:string) {
-    return this.http.delete(url);
+    return this.http.delete(url).catch(err => {
+      return this.serverError(err);
+    });
   }
 
   private jsonResponse(res:Response) {
@@ -64,5 +75,14 @@ export abstract class BaseService <T> {
   private jsonRequestOptions() {
     const headers = new Headers({'Content-Type': 'application/json'});
     return new RequestOptions({headers: headers});
+  }
+
+  private serverError(err:any):Observable<string> {
+    console.error('sever error:', err);  // debug
+    if (err instanceof Response) {
+      const errorResponse = err.json();
+      return Observable.throw(errorResponse.message || 'backend server error');
+    }
+    return Observable.throw(err || 'backend server error');
   }
 }

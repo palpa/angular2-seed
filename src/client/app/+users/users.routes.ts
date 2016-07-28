@@ -7,7 +7,11 @@ export const UsersRoutes = [
     component: UsersComponent,
     children: [
       {
-        path: ':id',
+        path: ':id/edit',
+        component: UserFormComponent
+      },
+      {
+        path: 'new',
         component: UserFormComponent
       },
       {

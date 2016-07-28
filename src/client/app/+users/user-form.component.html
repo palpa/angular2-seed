@@ -1,16 +1,32 @@
-<div *ngIf="user">
-  <h3>"{{editName}}"</h3>
-  <div>
-    <label>Id: </label>{{user.id}}
-  </div>
-  <div>
-    <label>Name: </label>
-    <input [(ngModel)]="editName" placeholder="name"/>
-  </div>
-  <span *ngIf="error" style="color: red;">{{error}}</span>
-  <p>
-    <button (click)="save(user)">Guardar</button>
-    <button (click)="cancel()">Cancelar</button>
-    <button (click)="reload()">Actualizar</button>
-  </p>
+<div class="modal-header dialog-header">
+  <legend style="margin-bottom:0; border-bottom: 0;">Nuevo Reparador</legend>
 </div>
+
+<div class="modal-body" *ngIf="form">
+  <form class="form-horizontal" role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <fieldset>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label class="control-label" for="usernameInput">Reparador</label>
+
+            <input id="usernameInput" formControlName="username" type="text"
+                   placeholder="Ingrese nombre de usuario del reparador" class="form-control input-md">
+            <span *ngIf="error" style="color: red;">{{error}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-7 col-md-5">
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Confirmar</button>
+            <button type="button" class="btn btn-success" (click)="cancel()">Cancelar</button>
+            <button type="button" class="btn btn-info" *ngIf="editing()" (click)="reload()">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
