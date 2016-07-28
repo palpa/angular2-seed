@@ -70,8 +70,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.loadItem(id).subscribe(item => {
       this.item = item;
       this.buildFormFor(item);
-    }, errMsg => {
-      alert(errMsg);
+    }, err => {
+      alert(err.message);
       this.goBack();
     });
   }
