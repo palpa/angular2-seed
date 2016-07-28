@@ -1,16 +1,46 @@
-<div>
-<form (submit)="addUser()">
-  <input [(ngModel)]="newName" name="newName" placeholder="Nombre de Usuario">
-  <button type="submit">Nuevo</button>
-</form>
+<div class="row bottom-buffer">
+  <div class="col-sm-2">
+    <p>
+      <a [routerLink]="['/users', 'new']" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-plus-sign"></span> Nuevo Reparador
+      </a>
+    </p>
+  </div>
 </div>
-<ul class="list-group items">
-  <li *ngFor="let user of usersService.users"
-      [class.active]="isSelected(user)"
-      (click)="onSelect(user)"
-      class="list-group-item">
-    {{user.username}}
-    <span *ngIf="isSelected(user)" style="float: right"><a [routerLink]="['/users', user.id]" style="color: white">Editar</a> | <a
-      (click)="remove(user)" style="color: white">Borrar</a></span>
-  </li>
-</ul>
+
+<div class="row" *ngIf="list.length === 0">
+  <div class="col-sm-12">
+    <p>No se encontraron reparadores...</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="list.length !== 0">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Reparador</th>
+          <th>Actualizado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of list">
+          <td>{{item.username}}</td>
+          <td>{{item.lastUpdated | date}}</td>
+          <td style="white-space: nowrap;">
+            <a tooltip="Editar" [routerLink]="['/users', item.id, 'edit']"
+               class="table-link btn btn-xs btn-warning">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a tooltip="Borrar" (click)="removeItem(item)"
+               class="table-link btn btn-xs btn-danger">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

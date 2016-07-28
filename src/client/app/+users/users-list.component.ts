@@ -1,66 +1,26 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router, ROUTER_DIRECTIVES} from '@angular/router';
-
+import {Component, OnInit} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+import {User} from './index';
 import {UsersService} from './users.service';
-import {User} from './User';
 
-/**
- * This class represents the lazy loaded UsersComponent.
- */
 @Component({
   moduleId: module.id,
-  selector: 'sd-users',
+  selector: 'sd-worker-list',
   templateUrl: 'users-list.component.html',
-  styleUrls: ['users-list.component.css'],
   directives: [ROUTER_DIRECTIVES]
 })
-export class UsersListComponent implements OnInit, OnDestroy {
+export class UsersListComponent implements OnInit {
+  list:User[] = [];
 
-  newName:string;
-  private selectedId:number;
-  private sub:any;
-
-  /**
-   * Creates an instance of the UsersComponent
-   *
-   * @param usersService
-   */
-  constructor(public usersService:UsersService, private router:Router) {
+  constructor(private service:UsersService) {
   }
 
   ngOnInit() {
-    this.sub = this.router
-      .routerState
-      .queryParams
-      .subscribe(params => {
-        this.selectedId = +params['id'];
-      });
+    this.service.getAll().subscribe(list => this.list = list);
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  /**
-   * Calls the add method.
-   * @return {boolean} false to prevent default form submit behavior to refresh the page.
-   */
-  addUser():boolean {
-    this.usersService.add(this.newName);
-    this.newName = '';
-    return false;
-  }
-
-  isSelected(user:User) {
-    return user.id === this.selectedId;
-  }
-
-  onSelect(user:User) {
-    this.router.navigate(['/users'], {queryParams: {id: user.id}});
-  }
-
-  remove(user:User) {
-    this.usersService.remove(user).subscribe(() => console.log('ok')
+  removeItem(item:User) {
+    this.service.remove(item).subscribe(() => this.ngOnInit()
       , (errMsg) => alert(errMsg)
     );
   }
