@@ -1,14 +1,15 @@
 <div class="row bottom-buffer">
   <div class="col-sm-2">
-    <a [routerLink]="['/reparations', 'new']" class="btn btn-primary" type="button" >
-      <span class="glyphicon glyphicon-plus-sign"></span> Nueva Reparación
-    </a>
+    <p>
+      <a [routerLink]="['/reparations', 'new']" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-plus-sign"></span> Nueva Reparación
+      </a>
+    </p>
   </div>
 </div>
 
 <div class="row" *ngIf="list.length === 0">
   <div class="col-sm-12">
-    <hr>
     <p>No se encontraron reparaciones...</p>
   </div>
 </div>
@@ -20,21 +21,23 @@
         <thead>
         <tr>
           <th>#Serie</th>
-          <th>Tipo</th>
+          <th>Tipo de Equipo</th>
           <th>Estado</th>
-          <th>Responsable</th>
+          <th>Ciclo</th>
           <th>Creado</th>
           <th>Actualizado</th>
+          <th>Responsable</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let item of list">
           <td>{{item.deviceSerialNumber}}</td>
           <td>{{item.deviceTypeName}}</td>
-          <td>{{item.currentStateName}}</td>
-          <td>{{item.currentResponsibleName}}</td>
+          <td>{{item.completed ? 'FINALIZADO' : item.currentStateName}}</td>
+          <td>{{item.reparationCycleName}}</td>
           <td>{{item.creationDate | date}}</td>
           <td>{{item.lastUpdated | date}}</td>
+          <td>{{item.currentResponsibleName}}</td>
           <td style="white-space: nowrap;">
             <a tooltip="Estados Históricos" [routerLink]="['/reparations', item.id, 'historic-states']"
                class="table-link btn btn-xs btn-info">
