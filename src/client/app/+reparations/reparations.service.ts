@@ -17,4 +17,6 @@ export class ReparationsService extends BaseService<Reparation> {
   changeState(id:number, value:any) {
     return this.postSubResource(id, 'state-change', value);
   }
+
+
 }

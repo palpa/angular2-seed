@@ -15,12 +15,16 @@ export abstract class BaseService <T> {
     return this.getJsonFrom(this.endpoint);
   }
 
-  public add(value:any):Observable<T> {
-    return this.postJsonTo(this.endpoint, value);
+  public add(item:any):Observable<T> {
+    return this.postJsonTo(this.endpoint, item);
   }
 
   public get(id:number):Observable<T> {
     return this.getJsonFrom(this.endpoint + '/' + id);
+  }
+
+  public delete(item:any) {
+    return this.deleteFrom(this.endpoint + '/' + item.id);
   }
 
   protected getSubResource(id:number, subResource:string):Observable<any> {
@@ -47,6 +51,10 @@ export abstract class BaseService <T> {
   private postJsonTo(url:string, value:any):Observable<T> {
     return this.http.post(url, value, this.jsonRequestOptions())
       .map(this.jsonResponse);
+  }
+
+  private deleteFrom(url:string) {
+    return this.http.delete(url);
   }
 
   private jsonResponse(res:Response) {
