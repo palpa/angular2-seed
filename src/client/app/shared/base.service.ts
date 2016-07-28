@@ -12,28 +12,23 @@ export abstract class BaseService <T> {
   }
 
   public getAll():Observable<T[]> {
-    return this.http.get(this.endpoint)
-      .map(this.jsonResponse);
+    return this.getJsonFrom(this.endpoint);
   }
 
   public add(value:any):Observable<T> {
-    return this.http.post(this.endpoint, value, this.jsonRequestOptions())
-      .map(this.jsonResponse);
+    return this.postJsonTo(this.endpoint, value);
   }
 
   public get(id:number):Observable<T> {
-    return this.http.get(this.endpoint + '/' + id)
-      .map(this.jsonResponse);
+    return this.getJsonFrom(this.endpoint + '/' + id);
   }
 
   protected getSubResource(id:number, subResource:string):Observable<any> {
-    return this.http.get(this.subResource(id, subResource))
-      .map(this.jsonResponse);
+    return this.getJsonFrom(this.subResource(id, subResource));
   }
 
   protected postSubResource(id:number, subResource:string, value:any) {
-    return this.http.post(this.subResource(id, subResource), value, this.jsonRequestOptions())
-      .map(this.jsonResponse);
+    return this.postJsonTo(this.subResource(id, subResource), value);
   }
 
   private subResource(id:number, subResource:string) {
@@ -42,6 +37,16 @@ export abstract class BaseService <T> {
 
   private get endpoint() {
     return this.baseUrl + this.resource;
+  }
+
+  private getJsonFrom(url:string) {
+    return this.http.get(url)
+      .map(this.jsonResponse);
+  }
+
+  private postJsonTo(url:string, value:any):Observable<T> {
+    return this.http.post(url, value, this.jsonRequestOptions())
+      .map(this.jsonResponse);
   }
 
   private jsonResponse(res:Response) {
