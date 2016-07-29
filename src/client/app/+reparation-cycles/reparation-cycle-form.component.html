@@ -13,11 +13,22 @@
 
               <input id="nameInput" formControlName="name" type="text"
                      placeholder="Ingrese nombre del {{formName}}" class="form-control input-md">
-              <p *ngIf="error" class="help-block" style="color: red;">{{error}}</p>
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label" for="initStateDescriptionInput">Estado Inicial</label>
 
+              <select id="initStateDescriptionInput" formControlName="initStateDescriptionId"
+                      class="form-control input-md">
+                <option *ngFor="let obj of stateDescriptions | async" [value]="obj.id">{{obj.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p *ngIf="error" class="help-block" style="color: red;">{{error}}</p>
         <div class="row">
           <div class="col-md-offset-7 col-md-5">
             <div class="form-group">

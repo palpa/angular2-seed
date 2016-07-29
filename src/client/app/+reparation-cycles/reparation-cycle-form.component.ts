@@ -4,6 +4,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {BaseFormComponent} from '../shared/base-form.component';
 import {ReparationCycle, PATH} from './index';
 import {ReparationCyclesService} from './reparation-cycles.service';
+import {StateDescription, StateDescriptionsService} from '../+state-descriptions/index';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +15,7 @@ import {ReparationCyclesService} from './reparation-cycles.service';
 })
 export class ReparationCycleFormComponent extends BaseFormComponent<ReparationCycle> {
   formName:String = 'Ciclo de Reparación';
+  stateDescriptions:Observable<StateDescription[]>;
 
   private emptyItem:ReparationCycle = {
     id: -1,
@@ -22,7 +25,10 @@ export class ReparationCycleFormComponent extends BaseFormComponent<ReparationCy
   };
 
   protected buildFormFor(item:ReparationCycle):FormGroup {
-    let form = this.fb.group({'name': [item.name, Validators.required]});
+    let form = this.fb.group({
+      'name': [item.name, Validators.required],
+      'initStateDescriptionId': [item.initStateDescriptionId, Validators.required]
+    });
 
     if (this.editing())
       form.addControl('lastUpdated', new FormControl(item.lastUpdated, Validators.required));
@@ -35,9 +41,11 @@ export class ReparationCycleFormComponent extends BaseFormComponent<ReparationCy
   }
 
   constructor(service:ReparationCyclesService,
+              stateDescriptions:StateDescriptionsService,
               route:ActivatedRoute,
               router:Router,
               private fb:FormBuilder) {
     super(service, PATH, route, router);
+    this.stateDescriptions = stateDescriptions.getAll();
   }
 }
