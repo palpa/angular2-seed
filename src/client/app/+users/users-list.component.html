@@ -1,8 +1,8 @@
 <div class="row bottom-buffer">
   <div class="col-sm-2">
     <p>
-      <a [routerLink]="['/users', 'new']" class="btn btn-primary" type="button">
-        <span class="glyphicon glyphicon-plus-sign"></span> Nuevo Reparador
+      <a [routerLink]="['/'+ resourceLink, 'new']" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-plus-sign"></span> {{newButtonText}}
       </a>
     </p>
   </div>
@@ -10,7 +10,7 @@
 
 <div class="row" *ngIf="list.length === 0">
   <div class="col-sm-12">
-    <p>No se encontraron reparadores...</p>
+    <p>{{notFoundItemsText}}</p>
   </div>
 </div>
 
@@ -29,7 +29,7 @@
           <td>{{item.username}}</td>
           <td>{{item.lastUpdated | date}}</td>
           <td style="white-space: nowrap;">
-            <a tooltip="Editar" [routerLink]="['/users', item.id, 'edit']"
+            <a tooltip="Editar" [routerLink]="['/'+resourceLink, item.id, 'edit']"
                class="table-link btn btn-xs btn-warning">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>

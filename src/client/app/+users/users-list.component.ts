@@ -11,6 +11,10 @@ import {UsersService} from './users.service';
   directives: [ROUTER_DIRECTIVES]
 })
 export class UsersListComponent extends BaseListComponent<User> {
+  resourceLink:string = 'users';
+  newButtonText:string = 'Nuevo Reparador';
+  notFoundItemsText:string = 'No se encontraron reparadores...';
+
   constructor(service:UsersService) {
     super(service);
   }
