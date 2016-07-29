@@ -12,7 +12,7 @@ import {DeviceTypesService} from './device-types.service';
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class DeviceTypeFormComponent extends BaseFormComponent<DeviceType> {
-  formName:String = 'Equipo';
+  formName:String = 'Tipo de Equipo';
 
   private emptyItem:DeviceType = {
     id: -1,
