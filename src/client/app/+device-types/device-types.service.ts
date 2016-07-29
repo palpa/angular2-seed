@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import {DeviceType} from './device-type';
-import {BaseService} from '../shared/index';
 import {Http} from '@angular/http';
+import {BaseService} from '../shared/index';
+import {DeviceType, PATH} from './index';
 
 @Injectable()
 export class DeviceTypesService extends BaseService<DeviceType> {
   constructor(http:Http) {
-    super(http, 'device-types');
+    super(http, PATH);
   }
 }
-

@@ -1,0 +1,46 @@
+<div class="row bottom-buffer">
+  <div class="col-sm-2">
+    <p>
+      <a [routerLink]="['/'+ resourceLink, 'new']" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-plus-sign"></span> {{newButtonText}}
+      </a>
+    </p>
+  </div>
+</div>
+
+<div class="row" *ngIf="list.length === 0">
+  <div class="col-sm-12">
+    <p>{{notFoundItemsText}}</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="list.length !== 0">
+  <div class="col-sm-12">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>Tipo de Equipo</th>
+          <th>Actualizado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of list">
+          <td>{{item.name}}</td>
+          <td>{{item.lastUpdated | date}}</td>
+          <td style="white-space: nowrap;">
+            <a tooltip="Editar" [routerLink]="['/'+resourceLink, item.id, 'edit']"
+               class="table-link btn btn-xs btn-warning">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+            <a tooltip="Borrar" (click)="removeItem(item)"
+               class="table-link btn btn-xs btn-danger">
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

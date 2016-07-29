@@ -1,0 +1,33 @@
+<div *ngIf="form">
+  <div class="modal-header dialog-header">
+    <legend style="margin-bottom:0; border-bottom: 0;">{{editing() ? 'Editar' : 'Nuevo'}} {{formName}}</legend>
+  </div>
+
+  <div class="modal-body">
+    <form class="form-horizontal" role="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="control-label" for="nameInput">Tipo de Equipo</label>
+
+              <input id="nameInput" formControlName="name" type="text"
+                     placeholder="Ingrese nombre del tipo de equipo" class="form-control input-md">
+              <p *ngIf="error" class="help-block" style="color: red;">{{error}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-offset-7 col-md-5">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Confirmar</button>
+              <button type="button" class="btn btn-success" (click)="cancel()">Cancelar</button>
+              <button type="button" class="btn btn-info" *ngIf="editing()" (click)="reload()">Actualizar</button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
