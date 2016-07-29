@@ -21,6 +21,7 @@ export class ReparationCycleFormComponent extends BaseFormComponent<ReparationCy
     id: -1,
     name: '',
     initStateDescriptionId: -1,
+    initStateDescriptionName:'',
     lastUpdated: null
   };
 
