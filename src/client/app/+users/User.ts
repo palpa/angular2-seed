@@ -1,5 +1,5 @@
-export interface User {
-  id:number;
+import {BaseItem} from '../shared/index';
+
+export interface User extends BaseItem {
   username:string;
-  lastUpdated:Date;
 }
