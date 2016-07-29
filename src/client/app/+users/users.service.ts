@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {BaseService} from '../shared/index';
-import {User} from './User';
+import {User} from './index';
 
 @Injectable()
 export class UsersService extends BaseService<User> {

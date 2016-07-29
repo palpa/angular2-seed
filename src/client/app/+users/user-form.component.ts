@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES, Validators, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
-import {UsersService} from './users.service';
-import {User} from './User';
 import {BaseFormComponent} from '../shared/base-form.component';
+import {UsersService} from './users.service';
+import {User} from './index';
 
 @Component({
   moduleId: module.id,
