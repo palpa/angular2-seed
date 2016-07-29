@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {BaseService} from '../shared/index';
-import {Reparation} from './index';
+import {Reparation, PATH} from './index';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class ReparationsService extends BaseService<Reparation> {
   constructor(http:Http) {
-    super(http, 'reparations');
+    super(http, PATH);
   }
 
   getHistoricStates(id:number):Observable<any[]> {
@@ -17,6 +17,4 @@ export class ReparationsService extends BaseService<Reparation> {
   changeState(id:number, value:any) {
     return this.postSubResource(id, 'state-change', value);
   }
-
-
 }

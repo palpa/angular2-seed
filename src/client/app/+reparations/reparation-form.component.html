@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="form">
   <!-- Form Name -->
   <div class="modal-header dialog-header">
-    <legend style="margin-bottom:0; border-bottom: 0;">Nueva Reparacion</legend>
+    <legend style="margin-bottom:0; border-bottom: 0;">{{editing() ? 'Editar' : 'Nueva'}} {{formName}}</legend>
   </div>
 
   <div class="modal-body">
@@ -61,21 +61,16 @@
             </div>
           </div>
         </div>
-
+        <p *ngIf="error" class="help-block" style="color: red;">{{error}}</p>
         <div class="row">
           <div class="col-md-offset-7 col-md-5">
             <div class="form-group">
               <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Confirmar</button>
-              <button type="button" class="btn btn-danger">Restablecer</button>
+              <button type="button" class="btn btn-success" (click)="cancel()">Cancelar</button>
             </div>
           </div>
         </div>
       </fieldset>
     </form>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn btn-warning">Editar</button>
-    <button class="btn btn-success">Cerrar</button>
   </div>
 </div>

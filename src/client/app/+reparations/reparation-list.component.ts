@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {Reparation, ReparationsService} from './index';
+import {BaseListComponent} from '../shared/index';
+import {Reparation, ReparationsService, PATH} from './index';
 
 @Component({
   moduleId: module.id,
@@ -9,19 +10,12 @@ import {Reparation, ReparationsService} from './index';
   templateUrl: 'reparation-list.component.html',
   directives: [REACTIVE_FORM_DIRECTIVES, ROUTER_DIRECTIVES]
 })
-export class ReparationListComponent implements OnInit {
-  list:Reparation[] = [];
+export class ReparationListComponent extends BaseListComponent<Reparation> {
+  resourceLink:string = PATH;
+  newButtonText:string = 'Nueva Reparación';
+  notFoundItemsText:string = 'No se encontraron reparaciones...';
 
-  constructor(private service:ReparationsService) {
-  }
-
-  ngOnInit() {
-    this.service.getAll().subscribe(list => this.list = list);
-  }
-
-  removeItem(item:Reparation) {
-    this.service.remove(item).subscribe(() => this.ngOnInit()
-      , (errMsg) => alert(errMsg)
-    );
+  constructor(service:ReparationsService) {
+    super(service);
   }
 }

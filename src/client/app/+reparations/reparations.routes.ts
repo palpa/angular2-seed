@@ -5,9 +5,11 @@ import {ReparationListComponent} from './reparation-list.component';
 import {ReparationHistoricStatesComponent} from './historic-states/reparation-historic-states.component';
 import {ReparationStateChangeFormComponent} from './state-change/reparation-state-change-form.component';
 
+export const PATH = 'reparations';
+
 export const ReparationsRoutes:RouterConfig = [
   {
-    path: 'reparations',
+    path: PATH,
     component: ReparationsComponent,
     children: [
       {

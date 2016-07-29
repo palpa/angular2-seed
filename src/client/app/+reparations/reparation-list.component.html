@@ -2,7 +2,7 @@
   <div class="col-sm-2">
     <p>
       <a [routerLink]="['/reparations', 'new']" class="btn btn-primary" type="button">
-        <span class="glyphicon glyphicon-plus-sign"></span> Nueva Reparación
+        <span class="glyphicon glyphicon-plus-sign"></span> {{newButtonText}}
       </a>
     </p>
   </div>
@@ -10,7 +10,7 @@
 
 <div class="row" *ngIf="list.length === 0">
   <div class="col-sm-12">
-    <p>No se encontraron reparaciones...</p>
+    <p>{{notFoundItemsText}}</p>
   </div>
 </div>
 
