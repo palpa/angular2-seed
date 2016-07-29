@@ -5,6 +5,7 @@ import {Config, NameListService, NavbarComponent, ToolbarComponent} from './shar
 import {UsersService} from './+users/index';
 import {DeviceTypesService} from './+device-types/index';
 import {ReparationCyclesService} from './+reparation-cycles/index';
+import {StateDescriptionsService} from './+state-descriptions/index';
 
 /**
  * This class represents the main application component. Within the @Routes annotation is the configuration of the
@@ -13,7 +14,7 @@ import {ReparationCyclesService} from './+reparation-cycles/index';
 @Component({
   moduleId: module.id,
   selector: 'sd-app',
-  viewProviders: [NameListService, HTTP_PROVIDERS, UsersService, DeviceTypesService, ReparationCyclesService],
+  viewProviders: [NameListService, HTTP_PROVIDERS, UsersService, DeviceTypesService, ReparationCyclesService, StateDescriptionsService],
   templateUrl: 'app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent]
 })

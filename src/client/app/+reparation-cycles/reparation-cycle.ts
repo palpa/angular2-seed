@@ -1,5 +1,6 @@
-export interface ReparationCycle {
-  id:number;
+import {BaseItem} from '../shared/index';
+
+export interface ReparationCycle extends BaseItem {
   name:string;
-  lastUpdated:Date;
+  initStateDescriptionId:number;
 }
