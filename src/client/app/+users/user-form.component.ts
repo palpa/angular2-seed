@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {REACTIVE_FORM_DIRECTIVES, Validators, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 import {BaseFormComponent} from '../shared/base-form.component';
+import {User, PATH} from './index';
 import {UsersService} from './users.service';
-import {User} from './index';
 
 @Component({
   moduleId: module.id,
@@ -12,6 +12,8 @@ import {User} from './index';
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class UserFormComponent extends BaseFormComponent<User> {
+  formName:String = 'Reparador';
+
   private emptyItem:User = {
     id: -1,
     username: '',
@@ -35,6 +37,6 @@ export class UserFormComponent extends BaseFormComponent<User> {
               route:ActivatedRoute,
               router:Router,
               private fb:FormBuilder) {
-    super(service, 'users', route, router);
+    super(service, PATH, route, router);
   }
 }

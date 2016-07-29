@@ -1,9 +1,11 @@
 import {UsersComponent, UsersListComponent} from './index';
 import {UserFormComponent} from './user-form.component';
 
+export const PATH =  'workers';
+
 export const UsersRoutes = [
   {
-    path: 'users',
+    path: PATH,
     component: UsersComponent,
     children: [
       {

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {BaseListComponent} from '../shared/index';
-import {User} from './index';
+import {User, PATH} from './index';
 import {UsersService} from './users.service';
 
 @Component({
@@ -11,7 +11,7 @@ import {UsersService} from './users.service';
   directives: [ROUTER_DIRECTIVES]
 })
 export class UsersListComponent extends BaseListComponent<User> {
-  resourceLink:string = 'users';
+  resourceLink:string = PATH;
   newButtonText:string = 'Nuevo Reparador';
   notFoundItemsText:string = 'No se encontraron reparadores...';
 
