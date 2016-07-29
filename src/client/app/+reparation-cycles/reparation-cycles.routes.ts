@@ -1,6 +1,7 @@
 import {ReparationCyclesComponent, ReparationCycleListComponent, ReparationCycleFormComponent} from './index';
+import {ReparationCycleTransitionListBaseComponent} from './transitions/transition-list-base.component';
 
-export const PATH =  'reparation-cycles';
+export const PATH = 'reparation-cycles';
 
 export const ReparationCyclesRoutes = [
   {
@@ -10,6 +11,10 @@ export const ReparationCyclesRoutes = [
       {
         path: ':id/edit',
         component: ReparationCycleFormComponent
+      },
+      {
+        path: ':id/transitions',
+        component: ReparationCycleTransitionListBaseComponent
       },
       {
         path: 'new',
