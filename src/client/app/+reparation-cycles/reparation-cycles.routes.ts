@@ -2,6 +2,7 @@ import {ReparationCyclesComponent, ReparationCycleListComponent, ReparationCycle
 import {ReparationCycleTransitionListBaseComponent} from './transitions/transition-list-base.component';
 import {ReparationCycleTransitionFormComponent} from './transitions/transition-form.component';
 import {ReparationCycleTransitionFormBaseComponent} from './transitions/transition-form-base.component';
+import {ReparationCycleTransitionValidStatesComponent} from './transitions/valid-states.component';
 
 export const PATH = 'reparation-cycles';
 
@@ -25,6 +26,10 @@ export const ReparationCyclesRoutes = [
       {
         path: ':cycleId/transitions/:id/edit',
         component: ReparationCycleTransitionFormBaseComponent
+      },
+      {
+        path: ':cycleId/transitions/:id/valid-device-types',
+        component: ReparationCycleTransitionValidStatesComponent
       },
       {
         path: 'new',
