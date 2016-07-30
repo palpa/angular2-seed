@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 
 import { NameListService } from '../shared/index';
+import {Router} from '@angular/router';
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -9,7 +10,7 @@ import { NameListService } from '../shared/index';
 @Component({
   moduleId: module.id,
   selector: 'sd-home',
-  templateUrl: 'home.component.html',
+  template: '',
   styleUrls: ['home.component.css'],
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
@@ -25,13 +26,15 @@ export class HomeComponent implements OnInit {
    *
    * @param {NameListService} nameListService - The injected NameListService.
    */
-  constructor(public nameListService: NameListService) {}
+  constructor(public nameListService: NameListService, private router:Router) {
+    router.navigate(['/reparations']);
+  }
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
-    this.getNames();
+    //this.getNames();
   }
 
   /**
