@@ -3,28 +3,30 @@ import {REACTIVE_FORM_DIRECTIVES, Validators, FormBuilder, FormControl, FormGrou
 import {Router, ActivatedRoute} from '@angular/router';
 import {BaseFormComponent} from '../../shared/index';
 import {ReparationCycleTransitionsService} from './transitions.service';
+import {StateDescriptionsService, StateDescription} from '../../+state-descriptions/index';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-reparation-cycle-form',
-  templateUrl: 'reparation-cycle-form.component.html',
+  selector: 'sd-reparation-cycle-transition-form',
+  templateUrl: 'transition-form.component.html',
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class ReparationCycleFormComponent extends BaseFormComponent<any> {
-  formName:String = 'Ciclo de Reparación';
+export class ReparationCycleTransitionFormComponent extends BaseFormComponent<any> {
+  formName:String = 'Transición';
+  stateDescriptions:Observable<StateDescription[]>;
 
   private emptyItem:any = {
     id: -1,
-    name: '',
-    initStateDescriptionId: -1,
-    initStateDescriptionName: '',
+    startStateDescriptionId: -1,
+    endStateDescriptionId: -1,
     lastUpdated: null
   };
 
   protected buildFormFor(item:any):FormGroup {
     let form = this.fb.group({
-      'name': [item.name, Validators.required],
-      'initStateDescriptionId': [item.initStateDescriptionId, Validators.required]
+      'startStateDescriptionId': [item.startStateDescriptionId, Validators.required],
+      'endStateDescriptionId': [item.endStateDescriptionId, Validators.required]
     });
 
     if (this.editing())
@@ -38,8 +40,10 @@ export class ReparationCycleFormComponent extends BaseFormComponent<any> {
   }
 
   constructor(route:ActivatedRoute,
+              stateDescriptions:StateDescriptionsService,
               router:Router,
               private fb:FormBuilder) {
     super(ReparationCycleTransitionsService.SERVICE, ReparationCycleTransitionsService.SERVICE.path, route, router);
+    this.stateDescriptions = stateDescriptions.getAll();
   }
 }

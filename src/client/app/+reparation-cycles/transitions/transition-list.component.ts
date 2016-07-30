@@ -11,7 +11,7 @@ import {PATH} from '../index';
   directives: [ROUTER_DIRECTIVES]
 })
 export class ReparationCycleTransitionListComponent extends BaseListComponent<any> {
-  resourceLink:string = PATH;
+  resourceLink:string = ReparationCycleTransitionsService.SERVICE.path;
   newButtonText:string = 'Nueva Transición';
   notFoundItemsText:string = 'No se encontraron transiciones...';
 

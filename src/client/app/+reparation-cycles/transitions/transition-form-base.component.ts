@@ -2,14 +2,14 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Http} from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
 import {ReparationCycleTransitionsService} from './transitions.service';
-import {ReparationCycleTransitionListComponent} from './transition-list.component';
+import {ReparationCycleTransitionFormComponent} from './transition-form.component';
 
 @Component({
   moduleId: module.id,
-  template: `<sd-reparation-cycle-transition-list *ngIf="loaded"></sd-reparation-cycle-transition-list>`,
-  directives: [ReparationCycleTransitionListComponent]
+  template: `<sd-reparation-cycle-transition-form *ngIf="loaded"></sd-reparation-cycle-transition-form>`,
+  directives: [ReparationCycleTransitionFormComponent]
 })
-export class ReparationCycleTransitionListBaseComponent implements OnInit, OnDestroy {
+export class ReparationCycleTransitionFormBaseComponent implements OnInit, OnDestroy {
   loaded:boolean = false;
   private sub:any;
 
