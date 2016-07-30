@@ -23,6 +23,10 @@ export const ReparationCyclesRoutes = [
         component: ReparationCycleTransitionFormBaseComponent
       },
       {
+        path: ':cycleId/transitions/:id/edit',
+        component: ReparationCycleTransitionFormBaseComponent
+      },
+      {
         path: 'new',
         component: ReparationCycleFormComponent
       },

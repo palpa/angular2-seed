@@ -35,7 +35,7 @@
                class="table-link btn btn-xs btn-info">
               <span class="glyphicon glyphicon-ok"></span>
             </a>
-            <a tooltip="Editar" [routerLink]="['/'+resourceLink, item.id, 'edit']"
+            <a *ngIf="false" tooltip="Editar" [routerLink]="['/'+resourceLink, item.id, 'edit']"
                class="table-link btn btn-xs btn-warning">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>

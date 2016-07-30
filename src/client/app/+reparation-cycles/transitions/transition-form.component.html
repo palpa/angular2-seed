@@ -1,6 +1,6 @@
 <div *ngIf="form">
   <div class="modal-header dialog-header">
-    <legend style="margin-bottom:0; border-bottom: 0;">{{editing() ? 'Editar' : 'Nuevo'}} {{formName}}</legend>
+    <legend style="margin-bottom:0; border-bottom: 0;">{{editing() ? 'Editar' : 'Nueva'}} {{formName}}</legend>
   </div>
 
   <div class="modal-body">
@@ -21,7 +21,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label class="control-label" for="endStateDescriptionIdInput">Estado Inicial</label>
+              <label class="control-label" for="endStateDescriptionIdInput">Estado Final</label>
 
               <select id="endStateDescriptionIdInput" formControlName="endStateDescriptionId"
                       class="form-control input-md">
