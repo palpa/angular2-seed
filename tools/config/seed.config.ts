@@ -66,8 +66,15 @@ export class SeedConfig {
   COVERAGE_PORT = argv['coverage-port'] || 4004;
 
   /**
+  * The path to the coverage output
+  * NB: this must match what is configured in ./karma.conf.js
+  */
+  COVERAGE_DIR = 'coverage';
+
+  /**
    * The path for the base of the application at runtime.
-   * The default path is `/`, which can be overriden by the `--base` flag when running `npm start`.
+   * The default path is based on the environment '/',
+   * which can be overriden by the `--base` flag when running `npm start`.
    * @type {string}
    */
   APP_BASE = argv['base'] || '/';
@@ -91,6 +98,17 @@ export class SeedConfig {
    * @type {number}
    */
   HOT_LOADER_PORT = 5578;
+
+  /**
+   * The build interval which will force the TypeScript compiler to perform a typed compile run.
+   * Between the typed runs, a typeless compile is run, which is typically much faster.
+   * For example, if set to 5, the initial compile will be typed, followed by 5 typeless runs,
+   * then another typed run, and so on.
+   * If a compile error is encountered, the build will use typed compilation until the error is resolved.
+   * The default value is `0`, meaning typed compilation will always be performed.
+   * @type {number}
+   */
+  TYPED_COMPILE_INTERVAL = 0;
 
   /**
    * The directory where the bootstrap file is located.
@@ -435,6 +453,18 @@ export class SeedConfig {
     'gulp-sass': {
       includePaths: ['./node_modules/']
     },
+
+    /**
+     * The options to pass to gulp-concat-css
+     * Reference: https://github.com/mariocasciaro/gulp-concat-css
+     * @type {object}
+     */
+    'gulp-concat-css': {
+      targetFile: this.CSS_PROD_BUNDLE,
+      options: {
+        rebaseUrls: false
+      }
+    }
   };
 
   /**

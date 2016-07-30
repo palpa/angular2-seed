@@ -3,6 +3,7 @@ import * as cssnano from 'cssnano';
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import * as merge from 'merge-stream';
+import * as util from 'gulp-util';
 import { join } from 'path';
 
 import {
@@ -10,7 +11,6 @@ import {
   APP_SRC,
   BROWSER_LIST,
   CSS_DEST,
-  CSS_PROD_BUNDLE,
   CSS_SRC,
   DEPENDENCIES,
   ENABLE_SCSS,
@@ -21,12 +21,15 @@ import {
 
 const plugins = <any>gulpLoadPlugins();
 const cleanCss = require('gulp-clean-css');
+const gulpConcatCssConfig = getPluginConfig('gulp-concat-css');
 
 const processors = [
   autoprefixer({
     browsers: BROWSER_LIST
   })
 ];
+
+const reportPostCssError = (e: any) => util.log(util.colors.red(e.message));
 
 const isProd = ENV === 'prod';
 
@@ -66,6 +69,7 @@ function processComponentScss() {
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.sass(getPluginConfig('gulp-sass')).on('error', plugins.sass.logError))
     .pipe(plugins.postcss(processors))
+    .on('error', reportPostCssError)
     .pipe(plugins.sourcemaps.write(isProd ? '.' : ''))
     .pipe(gulp.dest(isProd ? TMP_DIR : APP_DEST));
 }
@@ -81,6 +85,7 @@ function processComponentCss() {
   ])
     .pipe(isProd ? plugins.cached('process-component-css') : plugins.util.noop())
     .pipe(plugins.postcss(processors))
+    .on('error', reportPostCssError)
     .pipe(gulp.dest(isProd ? TMP_DIR : APP_DEST));
 }
 
@@ -97,8 +102,9 @@ function processExternalStylesheets() {
  */
 function processAllExternalStylesheets() {
   return merge(getExternalCssStream(), getExternalScssStream())
-    .pipe(isProd ? plugins.concatCss(CSS_PROD_BUNDLE) : plugins.util.noop())
+    .pipe(isProd ? plugins.concatCss(gulpConcatCssConfig.targetFile, gulpConcatCssConfig.options) : plugins.util.noop())
     .pipe(plugins.postcss(processors))
+    .on('error', reportPostCssError)
     .pipe(isProd ? cleanCss() : plugins.util.noop())
     .pipe(gulp.dest(CSS_DEST));
 }
@@ -143,7 +149,8 @@ function getExternalScss() {
 function processExternalCss() {
   return getExternalCssStream()
     .pipe(plugins.postcss(processors))
-    .pipe(isProd ? plugins.concatCss(CSS_PROD_BUNDLE) : plugins.util.noop())
+    .pipe(isProd ? plugins.concatCss(gulpConcatCssConfig.targetFile, gulpConcatCssConfig.options) : plugins.util.noop())
+    .on('error', reportPostCssError)
     .pipe(isProd ? cleanCss() : plugins.util.noop())
     .pipe(gulp.dest(CSS_DEST));
 }

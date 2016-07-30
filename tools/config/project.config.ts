@@ -14,6 +14,9 @@ export class ProjectConfig extends SeedConfig {
     super();
     this.APP_TITLE = 'Sistema de Reparaciones';
 
+    /* Enable typeless compiler runs (faster) between typed compiler runs. */
+    // this.TYPED_COMPILE_INTERVAL = 5;
+
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
@@ -31,7 +34,7 @@ export class ProjectConfig extends SeedConfig {
     ];
 
     /* Add to or override NPM module configurations: */
-    //this.mergeObject(this.PLUGIN_CONFIGS['browser-sync'], { ghostMode: false });
+    // this.mergeObject(this.PLUGIN_CONFIGS['browser-sync'], { ghostMode: false });
   }
 
 }
