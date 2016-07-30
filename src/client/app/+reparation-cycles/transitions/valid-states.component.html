@@ -1,0 +1,36 @@
+<div *ngIf="loaded">
+  <div class="modal-header dialog-header">
+    <legend style="margin-bottom:0; border-bottom: 0;">Estados Válidos</legend>
+  </div>
+  <p></p>
+  <div class="row">
+    <div class="col-sm-6">
+      <select class="form-control input-md">
+        <option *ngFor="let obj of deviceTypes | async" [value]="obj.id">{{obj.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-6">
+      <button type="submit">Agregar</button>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="list.length === 0">
+    <div class="col-sm-12">
+      <p>{{notFoundItemsText}}</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="list.length !== 0">
+    <div class="col-sm-12">
+      <ul class="list-group items">
+        <li class="list-group-item" *ngFor="let obj of list">
+          {{obj.name}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-success" (click)="close()">Cerrar</button>
+  </div>
+</div>

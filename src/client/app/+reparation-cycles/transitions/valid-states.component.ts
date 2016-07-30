@@ -1,39 +1,45 @@
 import {Component} from '@angular/core';
 import {Http} from '@angular/http';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BaseComponent} from './base.component';
 import {ReparationCycleTransitionsService} from './transitions.service';
 import {Observable} from 'rxjs/Rx';
+import {DeviceTypesService} from '../../+device-types/index';
 
 @Component({
   moduleId: module.id,
-  template: `
-<div *ngIf="loaded">
-<h3>Estados Válidos de Reparación</h3>
-<p *ngFor="let obj of validDeviceTypes | async">{{obj.name}}</p>
-</div>
-`,
+  templateUrl: 'valid-states.component.html',
   directives: []
 })
 export class ReparationCycleTransitionValidStatesComponent extends BaseComponent {
   private sub2:any;
-  validDeviceTypes: Observable<any[]>;
-
-  constructor(route:ActivatedRoute, http:Http) {
-    super(route, http);
-  }
+  notFoundItemsText:string = 'No se encontraron estados válidos...';
+  list:any[] = [];
+  deviceTypes:Observable<any[]>;
 
   ngOnInit() {
     super.ngOnInit();
     this.sub2 = this.route.params.subscribe(params => {
       const id = +params['id'];
       console.log('id', id);
-      this.validDeviceTypes = ReparationCycleTransitionsService.SERVICE.getValidDeviceTypes(id);
+      ReparationCycleTransitionsService.SERVICE.getValidDeviceTypes(id).subscribe(list => this.list = list);
     });
+  }
+
+  close() {
+    this.router.navigate(['/' + ReparationCycleTransitionsService.SERVICE.path]);
   }
 
   ngOnDestroy() {
     this.sub2.unsubscribe();
     super.ngOnDestroy();
+  }
+
+  constructor(route:ActivatedRoute,
+              private router:Router,
+              http:Http,
+              deviceTypes:DeviceTypesService) {
+    super(route, http);
+    this.deviceTypes = deviceTypes.getAll();
   }
 }
