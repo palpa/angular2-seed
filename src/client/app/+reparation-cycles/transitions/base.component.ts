@@ -6,9 +6,10 @@ import {ReparationCycleTransitionsService} from './transitions.service';
 
 export class BaseComponent implements OnInit, OnDestroy {
   loaded:boolean = false;
+  service;
   private sub:any;
 
-  constructor(private route:ActivatedRoute,
+  constructor(protected route:ActivatedRoute,
               private http:Http) {
   }
 
@@ -16,6 +17,7 @@ export class BaseComponent implements OnInit, OnDestroy {
     console.log('loading');
     this.sub = this.route.params.subscribe(params => {
       ReparationCycleTransitionsService.SERVICE = new ReparationCycleTransitionsService(this.http, +params['cycleId']);
+      this.service = ReparationCycleTransitionsService.SERVICE;
       this.loaded = true;
       console.log('loaded');
     });
