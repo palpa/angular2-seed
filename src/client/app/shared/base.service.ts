@@ -73,7 +73,7 @@ export abstract class BaseService <T> {
   private serverError(err:any):Observable<any> {
     console.error('sever error:', err);  // debug
 
-    const errorResponse = (err instanceof Response) ?
+    const errorResponse:any = (err instanceof Response) ?
       this.jsonResponse(err) : {message: err};
 
     return Observable.throw({message: errorResponse.message || 'backend server error'});
@@ -82,11 +82,11 @@ export abstract class BaseService <T> {
   private jsonResponse(res:Response) {
     let response = res;
     try {
-      response = res.json()
+      response = res.json();
+    } catch (err) {
+      console.error('response', response);
     }
-    finally {
-      return response;
-    }
+    return response;
   }
 
   private jsonRequestOptions() {

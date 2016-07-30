@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {BaseListComponent} from '../../shared/index';
 import {ReparationCycleTransitionsService} from './transitions.service';
-import {PATH} from '../index';
 
 @Component({
   moduleId: module.id,

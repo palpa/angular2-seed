@@ -17,9 +17,8 @@ export class ReparationCycleTransitionsService extends BaseService<any> {
   }
 
   constructor(http:Http, id:number) {
-    const path = PATH + '/' + id + '/transitions';
-    super(http, path);
-    this.path = path;
+    super(http, PATH + '/' + id + '/transitions');
+    this.path = PATH + '/' + id + '/transitions';
   }
 }
 

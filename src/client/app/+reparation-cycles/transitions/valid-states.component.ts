@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Http} from '@angular/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BaseComponent} from './base.component';
@@ -12,14 +12,14 @@ import {FormControl, Validators, REACTIVE_FORM_DIRECTIVES} from '@angular/forms'
   templateUrl: 'valid-states.component.html',
   directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class ReparationCycleTransitionValidStatesComponent extends BaseComponent {
-  private sub2:any;
+export class ReparationCycleTransitionValidStatesComponent extends BaseComponent implements OnInit, OnDestroy {
   error:string;
   notFoundItemsText:string = 'No se encontraron estados válidos...';
   list:any[] = [];
   deviceTypeControl:FormControl = new FormControl('', Validators.required);
   deviceTypes:Observable<any[]>;
-  private transitionId;
+  private sub2:any;
+  private transitionId:number;
 
   ngOnInit() {
     super.ngOnInit();
@@ -34,24 +34,12 @@ export class ReparationCycleTransitionValidStatesComponent extends BaseComponent
     console.log('submitted:', value);
     ReparationCycleTransitionsService.SERVICE.postValidDeviceType(this.transitionId, {deviceTypeId: +value})
       .subscribe(()=> {
-        this.reload()
+        this.reload();
       }, (err) => this.error = err.message);
   }
 
   close() {
     this.router.navigate(['/' + ReparationCycleTransitionsService.SERVICE.path]);
-  }
-
-  ngOnDestroy() {
-    this.sub2.unsubscribe();
-    super.ngOnDestroy();
-  }
-
-
-  private reload() {
-    this.error = null;
-    ReparationCycleTransitionsService.SERVICE.getValidDeviceTypes(this.transitionId)
-      .subscribe(list => this.list = list);
   }
 
   constructor(route:ActivatedRoute,
@@ -60,5 +48,16 @@ export class ReparationCycleTransitionValidStatesComponent extends BaseComponent
               deviceTypes:DeviceTypesService) {
     super(route, http);
     this.deviceTypes = deviceTypes.getAll();
+  }
+
+  ngOnDestroy() {
+    this.sub2.unsubscribe();
+    super.ngOnDestroy();
+  }
+
+  private reload() {
+    this.error = null;
+    ReparationCycleTransitionsService.SERVICE.getValidDeviceTypes(this.transitionId)
+      .subscribe(list => this.list = list);
   }
 }

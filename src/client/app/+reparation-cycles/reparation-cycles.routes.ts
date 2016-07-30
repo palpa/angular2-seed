@@ -1,6 +1,5 @@
 import {ReparationCyclesComponent, ReparationCycleListComponent, ReparationCycleFormComponent} from './index';
 import {ReparationCycleTransitionListBaseComponent} from './transitions/transition-list-base.component';
-import {ReparationCycleTransitionFormComponent} from './transitions/transition-form.component';
 import {ReparationCycleTransitionFormBaseComponent} from './transitions/transition-form-base.component';
 import {ReparationCycleTransitionValidStatesComponent} from './transitions/valid-states.component';
 
