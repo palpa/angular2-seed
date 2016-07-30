@@ -5,15 +5,15 @@
   <p></p>
   <div class="row">
     <div class="col-sm-6">
-      <select class="form-control input-md">
+      <select class="form-control input-md" [formControl]="deviceTypeControl">
         <option *ngFor="let obj of deviceTypes | async" [value]="obj.id">{{obj.name}}</option>
       </select>
     </div>
     <div class="col-sm-6">
-      <button type="submit">Agregar</button>
+      <button type="submit" class="btn btn-primary" (click)="add()" [disabled]="!deviceTypeControl.valid">Agregar</button>
     </div>
   </div>
-
+  <p *ngIf="error" class="help-block" style="color: red;">{{error}}</p>
   <div class="row" *ngIf="list.length === 0">
     <div class="col-sm-12">
       <p>{{notFoundItemsText}}</p>
