@@ -49,6 +49,7 @@ export class ReparationCycleTransitionValidStatesComponent extends BaseComponent
 
 
   private reload() {
+    this.error = null;
     ReparationCycleTransitionsService.SERVICE.getValidDeviceTypes(this.transitionId)
       .subscribe(list => this.list = list);
   }

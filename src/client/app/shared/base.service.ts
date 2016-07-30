@@ -80,7 +80,13 @@ export abstract class BaseService <T> {
   }
 
   private jsonResponse(res:Response) {
-    return res.json();
+    let response = res;
+    try {
+      response = res.json()
+    }
+    finally {
+      return response;
+    }
   }
 
   private jsonRequestOptions() {
